@@ -1,0 +1,96 @@
+！！！！インストールの準備！！！！
+
+#キーボードレイアウト
+loadkeys jp106
+
+#起動モードの確認
+ls /sys/firmware/efi/efivars
+
+#インターネットの接続を確認
+ping www.google.com
+
+#パーティション分割
+認識
+fdisk -l
+
+#gdisk起動
+gdisk /dev/sda
+
+sda1=1007KB ef02
+sda2=200M
+sda3=X
+sda4=Y
+
+#フォーマット
+●BIOS Boot Partition
+mkfs.btrfs /dev/sda1
+
+●Boot Drive
+mkfs.btrfs /dev/sda2
+
+●Root Drive
+mkfs.btrfs /dev/sda3
+
+●Home Drive
+mkfs.btrfs /dev/sda4
+
+#マウント
+●ルートパーティションをマウント
+mount /dev/sda3 /mnt
+●他のパーティションをマウント
+mkdir  /mnt/boot
+mkdir /mnt/home
+mount /dev/sda2 /mnt/boot
+mount /dev/sda4 /mnt/home
+
+#システムクロックの更新
+timedatectl set-ntp true
+
+#ミラーの選択
+vim /etc/pacman.d/mirrorlist
+
+！！！！インストール！！！！
+
+#ベースシステムのインストール
+pacstrap /mnt base base-devel
+
+！！！！システムの設定！！！！
+#fstabの生成
+genfstab -U /mnt >> /mnt/etc/fstab
+
+#chroot
+arch-chroot /mnt
+
+#タイムゾーン
+ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+hwclock --systohc
+
+#ロケール
+vi /etc/locale.gen	en_US.UTF-8 UTF-8 ja_JP.UTF-8 UTF-8 をアンコメント
+locale-gen
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+echo KEYMAP=jp106 > /etc/vconsole.conf
+
+#ホストネーム
+echo "myhostname" > /etc/hostname
+vi /etc/hosts
+	127.0.0.1	localhost
+	::1			localhost
+	127.0.0.1	"myhostname".localdomain "myhostname"
+
+#Rootパスワード
+passwd
+
+#ブートローダー
+pacman -Syy
+pacman -S intel-ucode(Intel製CPUの場合)
+pacman -S grub
+grub-install --target=i386-pc /dev/sda
+grub-mkconfig -o /boot/grub/grub.cfg
+
+#再起動
+systemctl enable dhcpcd.service 
+exit
+umount -R /mnt
+reboot
+

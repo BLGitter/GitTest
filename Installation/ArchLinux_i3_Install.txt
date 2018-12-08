@@ -1,0 +1,26 @@
+#i3のインストール
+pacman -S i3 dmenu
+
+#Wi-Fi関連のコンポーネントをインストール
+pacman -S networkmanager network-manager-applet wpa_supplicant dialog
+
+#LightDM関連のコンポーネントをインストール
+pacman -S lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings lxappearance
+
+#その他i3向けコンポーネントをインストール
+pacman -S compton ttf-dejavu otf-ipafont
+
+
+#i3の日本語入力について
+●/xinitrcを編集
+{
+export DefaultImModule=fcitx
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS="@im=fcitx"
+}
+
+●/.config/i3/config にfcitxの起動設定
+exec --no-startup-id fcitx
+
+●fcitx-configで使用キーボードを設定

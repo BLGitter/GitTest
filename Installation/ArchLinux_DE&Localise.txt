@@ -1,0 +1,66 @@
+#vim･zsh･gitのインストール
+pacman -S vim zsh git
+
+#ユーザー追加
+useradd -m -g users -G wheel -s /bin/zsh "username"
+passwd "username"
+visudo	%wheel All=(ALL) をアンコメント
+
+#時計合わせ
+timedatectl set-ntp true
+vim /etc/systemd/timesyncd.conf
+{
+[Time]
+NTP=ntp1.jst.mfeed.ad.jp ntp2.jst.mfeed.ad.jp ntp3.jst.mfeed.ad.jp
+FallbackNTP=0.arch.pool.ntp.org 1.arch.pool.ntp.org 2.arch.pool.ntp.org 3.arch.pool.ntp.org
+}
+
+#Xのインストール
+●ビデオドライバのインストール
+lspci | grep -e VGA -e 3D	使用デバイスの確認
+pacman -Ss xf86-video	インストール候補の表示
+
+●X Window System 関連のパッケージをインストール
+pacman -S xorg-server xorg-apps xorg-xinit xterm  xorg-twm
+
+#デスクトップ環境のインストール
+pacman -S "foo"
+
+#ロケールの変更
+vim /etc/locale.conf
+{
+LANG=ja_JP.UTF-8
+LC_NUMERIC=ja_JP.UTF-8
+LC_TIME=ja_JP.UTF-8
+LC_MONETARY=ja_JP.UTF-8
+LC_PAPER=ja_JP.UTF-8
+LC_MEASUREMENT=ja_JP.UTF-8
+}
+
+#fcitxのインストール
+pacman -S fcitx fcitx-mozc fcitx-configtool
+
+$IMの設定を書く
+vim ~/.xprofile
+{
+export GTK_IM_MODULE=fcitx
+export QT_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export DefaultIMModule=fcitx
+}
+
+#日本語フォントのインストール
+pacman -S otf-ipafont
+pacman -S adobe-source-han-sans-jp-fonts 
+pacman -S adobe-source-han-serif-jp-fonts
+otf-source-han-code-jp (AUR)
+
+#コンソールの文字化け対策
+vim /etc/zsh/zshrc
+!!!!下記内容を末端に追加!!!!
+{
+# tty force LANG=C
+(tty|fgrep -q 'tty') && export LANG="C"
+}
+
+
