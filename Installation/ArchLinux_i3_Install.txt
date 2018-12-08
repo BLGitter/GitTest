@@ -24,3 +24,6 @@ export XMODIFIERS="@im=fcitx"
 exec --no-startup-id fcitx
 
 ●fcitx-configで使用キーボードを設定
+
+
+git test
