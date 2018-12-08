@@ -1,0 +1,47 @@
+!!
+!! rxvt-unicode (urxvt)
+!!
+
+URxvt.geometry:             100x40
+URxvt.scrollBar_right:      true
+URxvt.scrollBar_floating:   true
+URxvt.scrollstyle:          plain
+URxvt.cursorBlink:          true
+URxvt.cursorUnderline:      true
+URxvt.pointerBlank:         true
+URxvt.visualBell:           true
+URxvt.saveLines:            3000
+URxvt.fading:               40
+
+!! Font list and Spacing
+URxvt.font:                 xft:Dejavu Sans Mono-9,\
+                            xft:IPAGothic
+URxvt.letterSpace:          -1
+!URxvt.lineSpace:            0
+
+!! Color Scheme and Opacity
+URxvt.depth:                32
+URxvt.color0:               [97]#1b3237
+URxvt.color1:               [97]#c2454e
+URxvt.color2:               [97]#7cbf9e
+URxvt.color3:               [97]#8a7a63
+URxvt.color4:               [97]#7592df
+URxvt.color5:               [97]#ff5879
+URxvt.color6:               [97]#44b5b1
+URxvt.color7:               [97]#f2f1b9
+URxvt.color8:               [97]#065f73
+URxvt.color9:               [97]#ef5847
+URxvt.color10:              [97]#a2d9b1
+URxvt.color11:              [97]#ff6500
+URxvt.color12:              [97]#61778d
+URxvt.color13:              [97]#ff99a1
+URxvt.color14:              [97]#1FC939
+URxvt.color15:              [97]#f6f6c9
+URxvt.foreground:           [97]#e8dfd6
+URxvt.background:           [75]#11242c
+URxvt.colorIT:              [97]#87af5f
+URxvt.colorBD:              [97]#ef9c37
+URxvt.colorUL:              [97]#87afd7
+URxvt.scrollColor:          [97]#504945
+URxvt.troughColor:          [85]#3C3836
+
